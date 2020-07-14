@@ -1,9 +1,22 @@
 #content {
-  margin-left: auto;
-  margin-right: auto;
   width: 650px;
+  margin: auto;
+  margin-top: 10%;
 }
 
-#greeting-container {
-  margin-top: 20px;
+#fact-container {
+  color: coral;
+  font-size: 120%;
+  font-style: bold;
+  margin: 15%;
+}
+
+h1 {
+    color:forestgreen;
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: block;
 }
