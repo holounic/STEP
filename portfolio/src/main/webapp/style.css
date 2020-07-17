@@ -1,58 +1,56 @@
-
-  
 #fact-container {
-    font-size: 120%;
-    font-style: bold;
-    margin: 15%;
+  font-size: 120%;
+  font-style: bold;
+  margin: 15%;
 }
 
 #header {
-    background-color: rgb(35, 39, 36);
-    color: white;
-    width: 100% !important;
-    margin: 0;
-    padding: 2%;
-    padding-top: 1%;
+  background-color: rgb(35, 39, 36);
+  color: white;
+  width: 100% !important;
+  margin: 0;
+  padding: 2%;
+  padding-top: 1%;
 }
 
 #header h1 {
-    padding-top: 3%;
-    padding-bottom: 0;
+  padding-top: 3%;
+  padding-bottom: 0;
 }
 
 #header a {
-    color: rgb(218, 220, 255);
-    text-decoration: none;
-    font-style: italic;
+  color: rgb(218, 220, 255);
+  text-decoration: none;
+  font-style: italic;
 }
 
 .annotation {
-    font-size: smaller !important;
+  font-size: smaller !important;
 }
 
 #header p {
-    font-size: larger;
+  font-size: larger;
 }
 
 #content {
-    padding: 0 !important;
+  padding: 0 !important;
 }
 
 .project {
-    text-align: left;
-    margin: 2%;
+  text-align: left;
+  margin: 2%;
 }
 
 .project h4 {
-    color: rgb(46, 63, 48);
+  color: rgb(46, 63, 48);
 }
 
 h3 {
-    text-align: center;
+  text-align: center;
 }
 
 .fact-section {
-    text-align: center;
+  text-align: center;
 }
 
 #fact-container {
