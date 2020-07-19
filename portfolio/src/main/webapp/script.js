@@ -10,3 +10,12 @@ function getRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
+function getGreeting() {
+  fetch('/data')
+  .then(response => response.text())
+  .then((greeting) => {
+    const greetingContainer = document.getElementById('greeting-container');
+    greetingContainer.innerHTML = greeting;
+  })
+}
