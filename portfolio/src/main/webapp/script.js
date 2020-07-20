@@ -12,7 +12,6 @@ function getRandomFact() {
 }
 
 function getComment() {
-  console.log(10);
   fetch('/data')
   .then(response => response.json())
   .then((comments) => {
