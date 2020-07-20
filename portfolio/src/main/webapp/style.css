@@ -53,6 +53,6 @@ h3 {
   text-align: center;
 }
 
-#fact-container {
+#fact-container, #comment-container {
   margin-top: 20px;
 }
