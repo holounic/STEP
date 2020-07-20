@@ -18,7 +18,7 @@ function getComment() {
     const commentContainer = document.getElementById('comment-container');
     let styledComments = "";
     for (let i = 0; i < comments.length; i++) {
-      styledComments += ('<p>' + comments[i].number + '</p>');
+      styledComments += ('<p>' + comments[i].comment + '</p>');
     }
     commentContainer.innerHTML = styledComments;
   });

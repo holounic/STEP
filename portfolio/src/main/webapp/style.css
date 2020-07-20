@@ -49,10 +49,10 @@ h3 {
   text-align: center;
 }
 
-.fact-section {
+.fact-section, .comment-section {
   text-align: center;
 }
 
 #fact-container, #comment-container {
-  margin-top: 20px;
+  margin-top: 10px;
 }
