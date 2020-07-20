@@ -1,18 +1,67 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-  </head>
-  <body>
-    <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <div id="content">
+    <div class="row" id="header">
+      <div class="col-3" id="img">
+        <img src="images/cat_with_bread.jpg" alt="cat with bread"></img>
+      </div>
+      <div class="col-3">
+        <h1>Hi, I am Masha Samsikova</h1>
+        <p class="annotation">Second-year CS student at <a href="https://en.itmo.ru/en/">ITMO University</a></p>
+        <p>And this is my <a href="https://github.com/holounic">github</a></p>
+      </div>
     </div>
-  </body>
+    <br>
+    <h3>Implemented projects</h3>
+    <ul>
+      <li class="project">
+        <h4>
+          <a href="https://github.com/holounic/university/tree/master/paradigms/md2html">
+            Md to Html converter
+          </a>
+        </h4>
+        <p class="annotation">java</p>
+        <p>Converts documents written in md to html files</p>
+      </li>
+      <li class="project">
+        <h4>
+          <a href="https://github.com/holounic/jb-python-integration-parser">
+            Python integration parser
+          </a>
+        </h4>
+        <p class="annotation">java</p>
+        <p>Extracts useful information from python error messages</p>
+      </li>
+      <li class="project">
+        <h4>
+          <a href="https://github.com/holounic/university/tree/master/paradigms/mnkGame">
+            Mnk game
+          </a>
+        </h4>
+        <p class="annotation">java</p>
+        <p>Console game for two players</p>
+      </li>
+    </ul>
+    <hr>
+    </hr>
+    <div class="fact-section">
+      <button type="button" class="btn btn-info" onclick="getRandomFact()">random fact</button>
+      <div id="fact-container"></div>
+    </div>
+  </div>
+</body>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+  integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+</script>
 </html>
