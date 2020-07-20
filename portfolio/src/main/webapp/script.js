@@ -16,9 +16,9 @@ function getComment() {
   .then(response => response.json())
   .then(comments => {
     const commentContainer = document.getElementById('comment-container');
-    let styledComments = "";
-    for (let comments of commments) {
-      styledComments += ('<p>' + comment.number + '</p>');
+    let styledComments = '';
+    for (let comment of comments) {
+      styledComments += ('<p>' + comment.comment + '</p>');
     }
     commentContainer.innerHTML = styledComments;
   });

@@ -59,7 +59,11 @@
       <button type="button" class="btn btn-info" onclick="getRandomFact()">random fact</button>
       <div id="fact-container"></div>
     </div>
-    <div class="fact-section">
+    <div class="comment-section">
+      <form action="/data" method="POST">
+        <textarea name="comment-input">one, two, three</textarea>
+        <input type="submit" />
+      </form>
       <button type="button" class="btn btn-info" onclick="getComment()">get comment</button>
       <div id="comment-container"></div>
     </div>
