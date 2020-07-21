@@ -5,13 +5,59 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  private List<String> comments = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello Masha!</h1>");
+    String json = convertToJson(comments);
+    response.setContentType("application/json;");
+    System.out.println(json);
+    response.getWriter().println(json);
   }
+
+  private String convertToJson(List<String> arr) {
+    if (arr.isEmpty()) {
+      return "";
+    }
+    StringBuilder json = new StringBuilder("[\n");
+    int len = arr.size();
+    String field = "comment";
+
+    for (int i = 0; i < len - 1; i++) {
+      json.append(toJsonBlock(field, arr.get(i))).append(",\n");
+    }
+    json.append(toJsonBlock(field, arr.get(len - 1))).append("\n]");
+    return json.toString();
+  }
+
+  private String toJsonBlock(String field, String comment) {
+    return "{\"" + field + "\": " + "\"" + comment + "\"}";
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String comment = getParameter(request, "comment-input", "");
+    
+    if (!comment.isEmpty()) {
+      comments.add(comment);
+    }
+    
+    response.sendRedirect("index.html");
+  }
+
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    } else {
+      return value;
+    }
+  }
+
 }

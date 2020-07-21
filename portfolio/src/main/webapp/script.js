@@ -11,11 +11,15 @@ function getRandomFact() {
   factContainer.innerText = fact;
 }
 
-function getGreeting() {
+function getComment() {
   fetch('/data')
-  .then(response => response.text())
-  .then((greeting) => {
-    const greetingContainer = document.getElementById('greeting-container');
-    greetingContainer.innerHTML = greeting;
-  })
+  .then(response => response.json())
+  .then(comments => {
+    const commentContainer = document.getElementById('comment-container');
+    let styledComments = '';
+    for (let comment of comments) {
+      styledComments += (comment.comment + '\n');
+    }
+    $('#comment-container').text(styledComments);
+  });
 }
