@@ -18,8 +18,8 @@ function getComment() {
     const commentContainer = document.getElementById('comment-container');
     let styledComments = '';
     for (let comment of comments) {
-      styledComments += ('<p>' + comment.comment + '</p>');
+      styledComments += (comment.comment + '\n');
     }
-    commentContainer.innerHTML = styledComments;
+    $('#comment-container').text(styledComments);
   });
 }

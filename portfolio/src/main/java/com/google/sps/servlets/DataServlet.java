@@ -17,6 +17,7 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String json = convertToJson(comments);
     response.setContentType("application/json;");
+    System.out.println(json);
     response.getWriter().println(json);
   }
 
@@ -47,7 +48,7 @@ public class DataServlet extends HttpServlet {
       comments.add(comment);
     }
     
-    response.sendRedirect("/index.html");
+    response.sendRedirect("index.html");
   }
 
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
