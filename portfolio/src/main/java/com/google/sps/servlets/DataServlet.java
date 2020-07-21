@@ -23,6 +23,9 @@ public class DataServlet extends HttpServlet {
   }
 
   private String convertToJson(List<String> arr) {
+    if (arr.isEmpty()) {
+      return "";
+    }
     StringBuilder json = new StringBuilder("[\n");
     int len = arr.size();
 
@@ -32,7 +35,6 @@ public class DataServlet extends HttpServlet {
     json.append(toJsonBlock(arr.get(len - 1))).append("\n]");
     return json.toString();
   }
-
 
   private String toJsonBlock(String number) {
     return "{\"number\": " + "\"" + number + "\"}";
