@@ -16,11 +16,10 @@ function getComment() {
   .then(response => response.json())
   .then(comments => {
     const commentContainer = document.getElementById('comment-container');
-    
-    let styledComments = "";
-    for (comment of comments) {
-      styledComments += `<p>${comment.text}</p>\n`;
+    let styledComments = '';
+    for (let comment of comments) {
+      styledComments += (comment.comment + '\n');
     }
-    commentContainer.innerHTML = styledComments;
+    $('#comment-container').text(styledComments);
   });
 }
