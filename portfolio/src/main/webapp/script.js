@@ -14,11 +14,12 @@ function getRandomFact() {
 function getComment() {
   fetch('/data')
   .then(response => response.json())
-  .then((comments) => {
+  .then(comments => {
     const commentContainer = document.getElementById('comment-container');
+    
     let styledComments = "";
-    for (let i = 0; i < comments.length; i++) {
-      styledComments += ('<p>' + comments[i].comment + '</p>');
+    for (comment of comments) {
+      styledComments += `<p>${comment.text}</p>\n`;
     }
     commentContainer.innerHTML = styledComments;
   });
