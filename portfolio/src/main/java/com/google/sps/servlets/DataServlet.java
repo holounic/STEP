@@ -24,10 +24,7 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    PreparedQuery results = datastore.prepare(COMMENTS_QUERY);
+    PreparedQuery results = DatastoreServiceFactory.getDatastoreService().prepare(COMMENTS_QUERY);
 
     List<Comment> comments = new ArrayList<>();
 
@@ -45,17 +42,19 @@ public class DataServlet extends HttpServlet {
     return gson.toJson(comments);
   }
 
-
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = getParameter(request, "comment-input", "");
-
     if (!comment.isEmpty()) {
-      Entity commentEntity = new Entity("Comment");
-      commentEntity.setProperty("text", comment);
-      DatastoreServiceFactory.getDatastoreService().put(commentEntity);
+      addComment(comment);
     }
     response.sendRedirect("/index.html");
+  }
+
+  private void addComment(String text) {
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", text);
+    DatastoreServiceFactory.getDatastoreService().put(commentEntity);
   }
 
   private String getParameter(HttpServletRequest request, String name, String defaultValue) {
