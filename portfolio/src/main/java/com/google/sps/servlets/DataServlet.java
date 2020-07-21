@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-
   private final Query COMMENTS_QUERY = new Query("Comment")
           .addSort("text", Query.SortDirection.ASCENDING);
 
@@ -27,7 +26,6 @@ public class DataServlet extends HttpServlet {
     PreparedQuery results = DatastoreServiceFactory.getDatastoreService().prepare(COMMENTS_QUERY);
 
     List<Comment> comments = new ArrayList<>();
-
     for (Entity entity : results.asIterable()) {
       String text = (String) entity.getProperty("text");
       comments.add(new Comment(text));
@@ -38,8 +36,7 @@ public class DataServlet extends HttpServlet {
   }
 
   private String convertToJson(List<Comment> comments) {
-    Gson gson = new Gson();
-    return gson.toJson(comments);
+    return new Gson().toJson(comments);
   }
 
   @Override
