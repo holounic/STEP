@@ -25,6 +25,6 @@ function getComment() {
       commentContainer.innerHTML += section;
       $('#' + currentId).text(comment.text);
       index += 1;
-    }add
+    }
   });
 }
