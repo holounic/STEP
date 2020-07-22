@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="script.js"></script>
 </head>
 
@@ -58,6 +59,14 @@
     <div class="fact-section">
       <button type="button" class="btn btn-info" onclick="getRandomFact()">random fact</button>
       <div id="fact-container"></div>
+    </div>
+    <div class="comment-section">
+      <form action="/data" method="POST">
+        <textarea name="comment-input">one, two, three</textarea>
+        <input type="submit" />
+      </form>
+      <button type="button" class="btn btn-info" onclick="getComment()">get comment</button>
+      <div id="comment-container"></div>
     </div>
   </div>
 </body>
