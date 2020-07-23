@@ -1,12 +1,30 @@
-const facts = [
-  'i love cats',
-  'i love programming',
-  'i love sundays',
-  'i love cakes',
+function createImage(name) {
+  const link = `images/${name}.jpg`;
+  return `<img src=\"${link}\" alt=\"${name}\"></img>`
+}
+
+const images = [
+  createImage('beach'),
+  createImage('cat'), 
+  createImage('dog'), 
+  createImage('door'), 
+  createImage('forest'), 
+  createImage('fruit'), 
+  createImage('grass'),
+  createImage('house'),
+  createImage('plain'),
+  createImage('red_cat'), 
+  createImage('river'),
+  createImage('sea'),  
+  createImage('ship'),
+  createImage('street'),
+  createImage('watermelon'),
 ]
 
-function getRandomFact() {
-  const fact = facts[Math.floor(Math.random() * facts.length)];
-  const factContainer = document.getElementById('fact-container');
-  factContainer.innerText = fact;
+function getPhotos() {
+  const photoContainer = document.getElementById('photo-container');
+  for (let image of images) {
+    const imgContainer = `<div class=\"col-2\">${image}</div>`;
+    photoContainer.innerHTML += imgContainer;
+  }
 }

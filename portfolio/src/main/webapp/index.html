@@ -7,59 +7,103 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Raleway&family=Roboto:wght@300&display=swap" rel="stylesheet">
   <script src="script.js"></script>
 </head>
 
-<body>
+<body onload="getPhotos()">
   <div id="content">
-    <div class="row" id="header">
-      <div class="col-3" id="img">
-        <img src="images/cat_with_bread.jpg" alt="cat with bread"></img>
+      <div class="row header">
+        <div class="col-2">
+          <img src="images/graffiti.jpg" alt="graffiti"></img>
+        </div>
+        <div class="col-2">
+          <img src="images/sky.jpg" alt="sky"></img>
+        </div>
+        <div class="col-2">
+          <img src="images/street.jpg" alt="street"></img>
+        </div>
+        <div class="col-6">
+          <h1>Masha Samsikova</h1>
+          <h2>Second-year CS student at ITMO University, St.Petersburg, Russia</h2>
+        </div>
+        <div class="col-4">
+          <h1>Education</h1>
+          <a class="link" href="https://en.itmo.ru/">
+            Itmo University
+          </a>
+          <p class="additional">
+            Applied mathematics & CS
+          </p>
+          <a class="link" href="https://en.wikipedia.org/wiki/Saint_Petersburg_State_University">
+            SpbSU Academic Gymnasium
+          </a>
+          <p class="additional">
+            Chemestry & Biology
+          </p>
+        </div>
+        <div class="col-2">
+          <img src="images/itmo-university.jpg" alt="university"></img>
+        </div>
+        <div class="col-2">
+          <img src="images/school.jpg" alt="school"></img>
+        </div>
+        <div class="col-2">
+          <img src="images/alley.jpg" alt="alley"></img>
+        </div>
+        <div class="col-2">
+          <img src="images/whitee-night.jpg" alt="hight"></img>
+        </div>
+
+
+        <div class="col-2">
+          <img src="images/red_cat.jpg" alt="red cat"></img>
+        </div>
+        <div class="col-2">
+          <img src="images/river.jpg" alt="river"></img>
+        </div>
+        <div class="col-2">
+          <img src="images/plain.jpg" alt="plain"></img>
+        </div>
+        <div class="col-2">
+          <img src="images/house.jpg" alt="house"></img>
+        </div>
+
+
+        <div class="col-4">
+          <h1>Projects</h1>
+          <div>
+            <a class="link" href="https://github.com/holounic/jb-python-integration-parser">
+              Python integration parser
+            </a>
+            <p class="additional">
+              Written in java, extracts information from python errors
+            </p>
+          </div>
+          <div>
+            <a class="link" href="https://github.com/holounic/food-bot">
+              Telegram bot
+            </a>
+            <p class="additional">
+              Written in JS(Node.js), provides info about butrition fees
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="col-3">
-        <h1>Hi, I am Masha Samsikova</h1>
-        <p class="annotation">Second-year CS student at <a href="https://en.itmo.ru/en/">ITMO University</a></p>
-        <p>And this is my <a href="https://github.com/holounic">github</a></p>
+    <div class="row">
+      <div class="col-6">
+        <div class="section">
+          <div id="education-container"></div>
+        </div>
       </div>
-    </div>
-    <br>
-    <h3>Implemented projects</h3>
-    <ul>
-      <li class="project">
-        <h4>
-          <a href="https://github.com/holounic/university/tree/master/paradigms/md2html">
-            Md to Html converter
-          </a>
-        </h4>
-        <p class="annotation">java</p>
-        <p>Converts documents written in md to html files</p>
-      </li>
-      <li class="project">
-        <h4>
-          <a href="https://github.com/holounic/jb-python-integration-parser">
-            Python integration parser
-          </a>
-        </h4>
-        <p class="annotation">java</p>
-        <p>Extracts useful information from python error messages</p>
-      </li>
-      <li class="project">
-        <h4>
-          <a href="https://github.com/holounic/university/tree/master/paradigms/mnkGame">
-            Mnk game
-          </a>
-        </h4>
-        <p class="annotation">java</p>
-        <p>Console game for two players</p>
-      </li>
-    </ul>
-    <hr>
-    </hr>
-    <div class="fact-section">
-      <button type="button" class="btn btn-info" onclick="getRandomFact()">random fact</button>
-      <div id="fact-container"></div>
+      <div class="col-6">
+        <div class="section">
+          <div id="projects-container"></div>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="row" id="photo-container"></div>
 </body>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
   integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
