@@ -28,3 +28,11 @@ function getComment() {
     }
   });
 }
+
+function deleteComments() {
+    const request = new Request('/delete-data', {method: 'POST'});
+    fetch(request)
+    .then(() => {
+      document.getElementById('comment-container').innerHTML = "";
+    })
+}
