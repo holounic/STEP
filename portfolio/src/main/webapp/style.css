@@ -12,7 +12,8 @@
   font-size: 3vw;
 }
 
-.header h2, .section h2 {
+.header h2,
+.section h2 {
   font-family: 'Roboto', sans-serif;
   font-size: 120%;
 }
@@ -22,7 +23,8 @@
   font-size: 1.3vw;
 }
 
-.link, .name {
+.link,
+.name {
   color: darkblue;
   font-family: 'Roboto', sans-serif;
   font-size: 120%;
@@ -55,18 +57,54 @@
   padding-right: 2vw;
 }
 
-.fact-section, .comment-section {
+.fact-section,
+.comment-section {
   text-align: center;
 }
 
-#fact-container, #comment-container {
+#fact-container,
+#comment-container {
   margin-top: 10px;
 }
 
-.col-2:hover img, .col-6:hover img {
+.col-2:hover img,
+.col-6:hover img {
   opacity: 1;
 }
 
 .info {
   font-size: 1.5vw;
+}
+
+.comment-section textarea {
+  color: gray;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  border: none;
+  border-radius: 0.6rem;
+  width: 48vw;
+  display: inline-block !important;
+}
+
+.comment-section input {
+  background-color: white;
+  border: none !important;
+  display: inline-block !important;
+}
+
+.comment-section input:hover {
+  color: red !important;
+}
+
+.comment-button {
+  background-color: white;
+  color: black;
+  margin: 3%;
+  border: none;
+  display: inline-block !important;
+  padding-top: 35%;
+}
+
+.comment-button:hover {
+  color: red !important;
 }
