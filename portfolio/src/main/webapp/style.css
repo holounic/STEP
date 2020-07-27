@@ -3,13 +3,23 @@
   font-family: 'Raleway', sans-serif;
 }
 
+.row {
+  margin: 0% !important;
+}
+
 .header h1 {
   font-family: 'Montserrat', sans-serif;
+  font-size: 3vw;
 }
 
 .header h2, .section h2 {
   font-family: 'Roboto', sans-serif;
   font-size: 120%;
+}
+
+.caption {
+  color: gray;
+  font-size: 1.3vw;
 }
 
 .link, .name {
@@ -30,9 +40,19 @@
 
 .col-2 img {
   height: auto;
-  max-width:  100%;
+  max-width: 100%;
   object-fit: cover;
   opacity: .8;
+}
+
+.left-align {
+  text-align: left !important;
+  padding-left: 2vw;
+}
+
+.right-align {
+  text-align: right !important;
+  padding-right: 2vw;
 }
 
 .col-2:hover img, .col-6:hover img {
@@ -40,16 +60,5 @@
 }
 
 .info {
-  text-align: center !important;
-}
-
-.info h1 {
-  font-family: 'Roboto', sans-serif;
-  color: darkblue;
-  font-size: 200%;
-}
-
-.info h2 {
-  font-family: 'Raleway', sans-serif;
-  font-size: 150%;
+  font-size: 1.5vw;
 }
