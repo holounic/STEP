@@ -108,3 +108,11 @@
 .comment-button:hover {
   color: red !important;
 }
+
+.comment {
+  font-family: 'Roboto', sans-serif;
+  color: grey;
+  display: block;
+  padding: 3%;
+  margin: 2%;
+}

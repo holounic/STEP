@@ -5,17 +5,17 @@ function createImage(name) {
 
 const images = [
   createImage('beach'),
-  createImage('cat'), 
-  createImage('dog'), 
-  createImage('door'), 
-  createImage('forest'), 
-  createImage('fruit'), 
+  createImage('cat'),
+  createImage('dog'),
+  createImage('door'),
+  createImage('forest'),
+  createImage('fruit'),
   createImage('grass'),
   createImage('house'),
   createImage('plain'),
-  createImage('red_cat'), 
+  createImage('red_cat'),
   createImage('river'),
-  createImage('sea'),  
+  createImage('sea'),
   createImage('ship'),
   createImage('street'),
   createImage('watermelon'),
@@ -27,30 +27,32 @@ function getRandomFact() {
   factContainer.innerText = fact;
 }
 
-function getComment() {
+function getComments() {
   fetch('/data')
-  .then(response => response.json())
-  .then(comments => {
-    const commentContainer = document.getElementById('comment-container');
-    let index = 0;
-    let ID = 'comment-container';
+    .then(response => response.json())
+    .then(comments => {
+      const commentContainer = document.getElementById('comment-container');
+      let index = 0;
+      let ID = 'comment-container';
 
-    for (let comment of comments) {
-      const currentId = ID + '-' + index;
-      const section = '<div id=\"'+ currentId + '\"></div>';
-      commentContainer.innerHTML += section;
-      $('#' + currentId).text(comment.text);
-      index += 1;
-    }
-  });
+      for (let comment of comments) {
+        const currentId = ID + '-' + index;
+        const section = '<div id=\"' + currentId + '\" class="comment"></div>';
+        commentContainer.innerHTML += section;
+        $('#' + currentId).text(comment.text);
+        index += 1;
+      }
+    });
 }
 
 function deleteComments() {
-  const request = new Request('/delete-data', {method: 'POST'});
+  const request = new Request('/delete-data', {
+    method: 'POST'
+  });
   fetch(request)
-  .then(() => {
-    document.getElementById('comment-container').innerHTML = "";
-  })
+    .then(() => {
+      document.getElementById('comment-container').innerHTML = "";
+    })
 }
 
 function getPhotos() {
