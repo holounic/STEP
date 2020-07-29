@@ -23,10 +23,6 @@ public final class FindMeetingQuery {
     return event.getWhen().start();
   }
 
-  private int getDuration(Event event) {
-    return event.getWhen().duration();
-  }
-
   private int getEnd(Event event) {
     return event.getWhen().end();
   }
@@ -35,43 +31,40 @@ public final class FindMeetingQuery {
     return new HashSet<>(a).removeAll(b);
   }
 
-  private boolean timeOverlaps(int endA, int startB) {
-    return endA > startB;
-  }
-
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
 
-    Collection<String> newAttendees = request.getAttendees();
-    int newDuration = (int) request.getDuration();
+    Collection<String> attendees = request.getAttendees();
+    int duration = (int) request.getDuration();
+    int [] occupied = new int[60 * 24 + 1];
 
-    Event [] sortedEvents = events.toArray(new Event[events.size()]);
-
-    boolean [] occupied = new boolean[60 * 24];
-    for (int index = 0; index < events.size(); index++) {
-      Event current = sortedEvents[index];
-      if (sameAttendees(current.getAttendees(), newAttendees)) {
-        for (int i = getStart(current); i < getEnd(current); i++) {
-          occupied[i] = true;
-        }
+    for (Event event : events) {
+      if (sameAttendees(event.getAttendees(), attendees)) {
+        occupied[getStart(event)] += 1;
+        occupied[getEnd(event)] -= 1;
       }
     }
 
     List<TimeRange> schedule = new ArrayList<>();
 
-    int start = 0;
-    while (start < 60 * 24) {
-      if (occupied[start]) {
-        start++;
-        continue;
+    int index = 0;
+    int balance = 0;
+    while (index < 60 * 24) {
+      int start = index;
+
+      while (index < 60 * 24 && occupied[index] != 1) {
+        index++;
       }
-      int duration = 1;
-      while (start + duration < 60 * 24 && !occupied[start + duration]) {
-        duration++;
+      if (duration <= index - start) {
+        schedule.add(new TimeRange(start, index - start));
       }
-      if (duration >= newDuration) {
-        schedule.add(new TimeRange(start, duration));
+
+      while (index < 60 * 24) {
+        balance += occupied[index];
+        if (balance == 0) {
+          break;
+        }
+        index++;
       }
-      start = duration + start;
     }
     return schedule;
   }
