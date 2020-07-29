@@ -19,6 +19,12 @@ import java.util.*;
 
 public final class FindMeetingQuery {
 
+  private interface Criterion {
+    boolean satisfies(int x);
+  }
+
+  private static final int DAY = 60 * 24;
+
   private int getStart(Event event) {
     return event.getWhen().start();
   }
@@ -31,41 +37,46 @@ public final class FindMeetingQuery {
     return new HashSet<>(a).removeAll(b);
   }
 
-  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-
-    Collection<String> attendees = request.getAttendees();
-    int duration = (int) request.getDuration();
-    int [] occupied = new int[60 * 24 + 1];
-
-    for (Event event : events) {
-      if (sameAttendees(event.getAttendees(), attendees)) {
-        occupied[getStart(event)] += 1;
-        occupied[getEnd(event)] -= 1;
-      }
-    }
-
+  private List<TimeRange> makeSchedule(int [] occupied, Criterion criterion, int reqDuration) {
     List<TimeRange> schedule = new ArrayList<>();
-
     int index = 0;
-    int balance = 0;
-    while (index < 60 * 24) {
+    while (index < DAY) {
       int start = index;
-
-      while (index < 60 * 24 && occupied[index] < 1) {
+      while (index < DAY && criterion.satisfies(occupied[index])) {
         index++;
       }
-      if (duration <= index - start) {
+      if (index - start >= reqDuration) {
         schedule.add(new TimeRange(start, index - start));
       }
-
-      while (index < 60 * 24) {
-        balance += occupied[index];
-        if (balance == 0) {
-          break;
-        }
+      while (index < DAY && !criterion.satisfies(occupied[index])) {
         index++;
       }
     }
     return schedule;
+  }
+
+  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+
+    Collection<String> mAttendees = request.getAttendees();
+    Collection<String> oAttendees = request.getOptionalAttendees();
+    int duration = (int) request.getDuration();
+    int [] occupied = new int[DAY + 1];
+
+    for (Event event : events) {
+      if (sameAttendees(event.getAttendees(), mAttendees)) {
+        for (int i = getStart(event); i < getEnd(event); i++) {
+          occupied[i] = 2;
+        }
+      }
+      if (sameAttendees(event.getAttendees(), oAttendees)) {
+        for (int i = getStart(event); i < getEnd(event); i++) {
+          occupied[i] = Math.max(1, occupied[i]);
+        }
+      }
+    }
+
+    List<TimeRange> cSchedule = makeSchedule(occupied, x -> x == 0, duration);
+    List<TimeRange> mSchedule = makeSchedule(occupied, x -> x <= 1, duration);
+    return cSchedule.isEmpty() ? mSchedule : cSchedule;
   }
 }
