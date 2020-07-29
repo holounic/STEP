@@ -51,7 +51,7 @@ public final class FindMeetingQuery {
     while (index < 60 * 24) {
       int start = index;
 
-      while (index < 60 * 24 && occupied[index] != 1) {
+      while (index < 60 * 24 && occupied[index] < 1) {
         index++;
       }
       if (duration <= index - start) {
