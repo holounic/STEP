@@ -37,7 +37,7 @@ public final class FindMeetingQuery {
     return new HashSet<>(a).removeAll(b);
   }
 
-  private List<TimeRange> makeSchedule(int [] occupied, Criterion criterion, int reqDuration) {
+  private List<TimeRange> makeSchedule(int [] occupied, Criterion criterion, int duration) {
     List<TimeRange> schedule = new ArrayList<>();
     int index = 0;
     while (index < DAY) {
@@ -45,7 +45,7 @@ public final class FindMeetingQuery {
       while (index < DAY && criterion.satisfies(occupied[index])) {
         index++;
       }
-      if (index - start >= reqDuration) {
+      if (index - start >= duration) {
         schedule.add(new TimeRange(start, index - start));
       }
       while (index < DAY && !criterion.satisfies(occupied[index])) {
@@ -57,26 +57,26 @@ public final class FindMeetingQuery {
 
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
 
-    Collection<String> mAttendees = request.getAttendees();
-    Collection<String> oAttendees = request.getOptionalAttendees();
+    Collection<String> mandatoryAttendees = request.getAttendees();
+    Collection<String> optionalAttendees = request.getOptionalAttendees();
     int duration = (int) request.getDuration();
     int [] occupied = new int[DAY + 1];
 
     for (Event event : events) {
-      if (sameAttendees(event.getAttendees(), mAttendees)) {
+      if (sameAttendees(event.getAttendees(), mandatoryAttendees)) {
         for (int i = getStart(event); i < getEnd(event); i++) {
           occupied[i] = 2;
         }
       }
-      if (sameAttendees(event.getAttendees(), oAttendees)) {
+      if (sameAttendees(event.getAttendees(), optionalAttendees)) {
         for (int i = getStart(event); i < getEnd(event); i++) {
           occupied[i] = Math.max(1, occupied[i]);
         }
       }
     }
 
-    List<TimeRange> cSchedule = makeSchedule(occupied, x -> x == 0, duration);
-    List<TimeRange> mSchedule = makeSchedule(occupied, x -> x <= 1, duration);
-    return cSchedule.isEmpty() ? mSchedule : cSchedule;
+    List<TimeRange> commonSchedule = makeSchedule(occupied, x -> x == 0, duration);
+    List<TimeRange> mandatorySchedule = makeSchedule(occupied, x -> x <= 1, duration);
+    return commonSchedule.isEmpty() ? mandatorySchedule : commonSchedule;
   }
 }
