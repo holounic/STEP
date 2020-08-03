@@ -55,6 +55,11 @@ public final class FindMeetingQuery {
   }
 
   /**
+   *  The algorithm skips all minutes that don't meet the criterion,
+   *  memorises the index of the first fitting minute in a row and goes until
+   *  it finds the new unfitting minute. Adds the range to the list if
+   *  it's not less than the target duration.
+   *
    * @param occupied shows what minutes are available for booking
    *                 for mandatory (0|1) or all(0) attendees
    * @param criterion defines whose (mandatory or all attendees')
@@ -62,10 +67,6 @@ public final class FindMeetingQuery {
    * @param duration the duration of the new meeting
    * @return the list of time ranges available to schedule the meeting
    *
-   *  The algorithm skips all minutes that don't meet the criterion,
-   *  memorises the index of the first fitting minute in a row and goes until
-   *  it finds the new unfitting minute. Adds the range to the list if
-   *  it's not less than the target duration.
    */
   private List<TimeRange> findAvailableTimeRanges(int[] occupied, final Criterion criterion, int duration) {
     List<TimeRange> timeRanges = new ArrayList<>();

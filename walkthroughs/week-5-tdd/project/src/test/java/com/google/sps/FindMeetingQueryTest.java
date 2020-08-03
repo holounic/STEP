@@ -19,9 +19,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.*;
 import org.junit.runner.Request;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -56,6 +55,11 @@ public final class FindMeetingQueryTest {
   @Before
   public void setUp() {
     query = new FindMeetingQuery();
+  }
+
+  @AfterClass
+  public static void tearDownClass() {
+    System.out.println("Executed after all");
   }
 
   @Test
@@ -271,7 +275,6 @@ public final class FindMeetingQueryTest {
 
   @Test
   public void justEnoughRoomOptional() {
-
     Collection<Event> events = Arrays.asList(
             new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0830AM, false),
                     Arrays.asList(PERSON_A)),
@@ -351,7 +354,7 @@ public final class FindMeetingQueryTest {
     request.addOptionalAttendee(PERSON_B);
 
     Collection<TimeRange> actual = query.query(events, request);
-    Collection<TimeRange> expected = Arrays.asList(new TimeRange(TIME_0830AM, DURATION_1_HOUR));
+    Collection<TimeRange> expected = Arrays.asList(TimeRange.fromStartDuration(TIME_0830AM, DURATION_1_HOUR));
 
     Assert.assertEquals(expected, actual);
   }
