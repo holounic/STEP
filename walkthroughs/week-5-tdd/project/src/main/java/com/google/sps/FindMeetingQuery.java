@@ -24,7 +24,7 @@ public final class FindMeetingQuery {
 
   /*
    Criterion functional interface is used to define who's (mandatory or all attendees')
-   occupied hours should be taken in account in findAvailableTimeRanges function
+   occupied hours should be taken into account in the findAvailableTimeRanges function.
    */
   @FunctionalInterface
   private interface Criterion {
@@ -33,7 +33,7 @@ public final class FindMeetingQuery {
   private final Criterion COMMON_CRITERION = x -> x == 0;
   private final Criterion MANDATORY_CRITERION = x -> x <= 1;
 
-  private static final int DURATION_DAY = 60 * 24;
+  private static final int MINUTES = 60 * 24;
 
   private int getStart(Event event) {
     return event.getWhen().start();
@@ -51,12 +51,12 @@ public final class FindMeetingQuery {
   The algorithm skips all minutes that don't meet the criterion,
   memorises the index of the first fitting minute in a row and goes until
   it finds the new unfitting minute. Adds the range to the list if
-  if it's not less than the target duration.
+  it's not less than the target duration.
    */
   /**
    * @param occupied shows what minutes are available for booking
    *                 for mandatory (0|1) or all(0) attendees
-   * @param criterion defines who's (mandatory or all attendees')
+   * @param criterion defines whose (mandatory or all attendees')
    *                  occupied hours should be taken in account
    * @param duration the duration of the new meeting
    * @return the list of time ranges available to schedule the meeting
@@ -64,15 +64,15 @@ public final class FindMeetingQuery {
   private List<TimeRange> findAvailableTimeRanges(int [] occupied, final Criterion criterion, int duration) {
     List<TimeRange> timeRanges = new ArrayList<>();
     int index = 0;
-    while (index < DURATION_DAY) {
+    while (index < MINUTES) {
       int start = index;
-      while (index < DURATION_DAY && criterion.satisfies(occupied[index])) {
+      while (index < MINUTES && criterion.satisfies(occupied[index])) {
         index++;
       }
       if (index - start >= duration) {
         timeRanges.add(TimeRange.fromStartDuration(start, index - start));
       }
-      while (index < DURATION_DAY && !criterion.satisfies(occupied[index])) {
+      while (index < MINUTES && !criterion.satisfies(occupied[index])) {
         index++;
       }
     }
@@ -95,7 +95,7 @@ public final class FindMeetingQuery {
     for mandatory (2) or optional (1) attendee
     or not occupied (0)
      */
-    int [] occupied = new int[DURATION_DAY + 1];
+    int [] occupied = new int[MINUTES + 1];
 
     for (Event event : events) {
       if (haveCommonAttendees(event.getAttendees(), mandatoryAttendees)) {
