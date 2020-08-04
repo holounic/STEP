@@ -14,14 +14,12 @@
 
 package com.google.sps;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
-import org.junit.*;
-import org.junit.runner.Request;
+import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -51,16 +49,6 @@ public final class FindMeetingQueryTest {
   private static final int DURATION_2_HOUR = 120;
 
   private FindMeetingQuery query;
-
-  @Before
-  public void setUp() {
-    query = new FindMeetingQuery();
-  }
-
-  @AfterClass
-  public static void tearDownClass() {
-    System.out.println("Executed after all");
-  }
 
   @Test
   public void optionsForNoAttendees() {
@@ -345,16 +333,17 @@ public final class FindMeetingQueryTest {
   public void onlyOptionalAttendees() {
     Collection<Event> events = Arrays.asList(
             new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_0830AM, false),
-                    Arrays.asList(PERSON_A)),
+                    Collections.singletonList(PERSON_A)),
             new Event("Event 2", TimeRange.fromStartEnd(TIME_0930AM, TimeRange.END_OF_DAY, true),
-                    Arrays.asList(PERSON_B)));
+                    Collections.singletonList(PERSON_B)));
 
-    MeetingRequest request = new MeetingRequest(Arrays.asList(), DURATION_30_MINUTES);
+    MeetingRequest request = new MeetingRequest(Collections.emptyList(), DURATION_30_MINUTES);
     request.addOptionalAttendee(PERSON_A);
     request.addOptionalAttendee(PERSON_B);
 
     Collection<TimeRange> actual = query.query(events, request);
-    Collection<TimeRange> expected = Arrays.asList(TimeRange.fromStartDuration(TIME_0830AM, DURATION_1_HOUR));
+    Collection<TimeRange> expected = Collections.singletonList(
+            TimeRange.fromStartDuration(TIME_0830AM, DURATION_1_HOUR));
 
     Assert.assertEquals(expected, actual);
   }
