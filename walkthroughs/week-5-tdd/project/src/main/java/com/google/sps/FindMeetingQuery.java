@@ -14,10 +14,114 @@
 
 package com.google.sps;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+
 
 public final class FindMeetingQuery {
+  /*
+  NOT_OCCUPIED < OPTIONAL_OCCUPIED < MANDATORY_OCCUPIED
+   */
+  private static final int NOT_OCCUPIED = 0;
+  private static final int OPTIONAL_OCCUPIED = 1;
+  private static final int MANDATORY_OCCUPIED = 2;
+
+  /*
+  Criterion functional interface is used to define who's (mandatory or all attendees')
+  occupied hours should be taken into account in the findAvailableTimeRanges function.
+   */
+  @FunctionalInterface
+  private interface Criterion {
+    boolean satisfies(int x);
+  }
+  private final Criterion COMMON_CRITERION = x -> x == NOT_OCCUPIED;
+  private final Criterion MANDATORY_CRITERION = x -> x == OPTIONAL_OCCUPIED || x == NOT_OCCUPIED;
+
+
+  private static final int MINUTES_IN_DAY = 60 * 24;
+
+  private int getStart(Event event) {
+    return event.getWhen().start();
+  }
+
+  private int getEnd(Event event) {
+    return event.getWhen().end();
+  }
+
+  private boolean haveCommonAttendees(Collection<String> a, Collection<String> b) {
+    return new HashSet<>(a).removeAll(b);
+  }
+
+  /**
+   *  The algorithm skips all minutes that don't meet the criterion,
+   *  memorises the index of the first fitting minute in a row and goes until
+   *  it finds the new unfitting minute. Adds the range to the list if
+   *  it's not less than the target duration.
+   *
+   * @param occupied shows what minutes are available for booking
+   *                 for mandatory (0|1) or all(0) attendees
+   * @param criterion defines whose (mandatory or all attendees')
+   *                  occupied hours should be taken in account
+   * @param duration the duration of the new meeting
+   * @return the list of time ranges available to schedule the meeting
+   *
+   */
+  private List<TimeRange> findAvailableTimeRanges(int[] occupied, final Criterion criterion, int duration) {
+    List<TimeRange> timeRanges = new ArrayList<>();
+    int index = 0;
+    while (index < MINUTES_IN_DAY) {
+      int start = index;
+      while (index < MINUTES_IN_DAY && criterion.satisfies(occupied[index])) {
+        index++;
+      }
+      if (index - start >= duration) {
+        timeRanges.add(TimeRange.fromStartDuration(start, index - start));
+      }
+      while (index < MINUTES_IN_DAY && !criterion.satisfies(occupied[index])) {
+        index++;
+      }
+    }
+    return timeRanges;
+  }
+
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
+    if (events == null) {
+      throw new IllegalArgumentException("Events list should be a non-null value");
+    }
+    if (request == null) {
+      throw new IllegalArgumentException("Request should be a non-null value");
+    }
+    Collection<String> mandatoryAttendees = request.getAttendees();
+    Collection<String> optionalAttendees = request.getOptionalAttendees();
+    int duration = (int) request.getDuration();
+
+    /*
+    occupied array indicates if the i-th hour is occupied
+    for mandatory (2) or optional (1) attendee
+    or not occupied (0)
+     */
+    int[] occupied = new int[MINUTES_IN_DAY + 1];
+
+    for (Event event : events) {
+      if (haveCommonAttendees(event.getAttendees(), mandatoryAttendees)) {
+        for (int i = getStart(event); i < getEnd(event); i++) {
+          occupied[i] = MANDATORY_OCCUPIED;
+        }
+      }
+      if (haveCommonAttendees(event.getAttendees(), optionalAttendees)) {
+        for (int i = getStart(event); i < getEnd(event); i++) {
+          occupied[i] = Math.max(OPTIONAL_OCCUPIED, occupied[i]);
+        }
+      }
+    }
+
+    List<TimeRange> commonTimeRanges = findAvailableTimeRanges(occupied, COMMON_CRITERION, duration);
+    if (commonTimeRanges.isEmpty()) {
+      return findAvailableTimeRanges(occupied, MANDATORY_CRITERION, duration);
+    } else {
+      return commonTimeRanges;
+    }
   }
 }
