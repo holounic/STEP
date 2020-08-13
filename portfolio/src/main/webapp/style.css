@@ -44,7 +44,7 @@
   height: auto;
   max-width: 100%;
   object-fit: cover;
-  opacity: .8;
+  opacity: .6;
 }
 
 .left-align {
@@ -88,8 +88,8 @@
 
 .comment-section input {
   background-color: white;
-  border: none !important;
   display: inline-block !important;
+  border: none;
 }
 
 .comment-section input:hover {
@@ -99,10 +99,8 @@
 .comment-button {
   background-color: white;
   color: black;
-  margin: 3%;
-  border: none;
-  display: inline-block !important;
-  padding-top: 35%;
+  border: 0.03rem solid grey !important;
+  border-radius: 0.2em;
 }
 
 .comment-button:hover {
@@ -115,4 +113,21 @@
   display: block;
   padding: 3%;
   margin: 2%;
+}
+
+.container {
+  position: relative;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+a {
+  text-decoration: none !important;
 }
