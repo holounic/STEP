@@ -23,15 +23,21 @@
       <div class="col-2">
         <img src="images/street.jpg" alt="street"></img>
       </div>
-      <div class="col-6">
-        <h1>Masha Samsikova</h1>
-        <p class="caption">Second-year CS student at ITMO University, St.Petersburg, Russia</p>
+      <div class="col-6 container">
+        <div class="center">
+          <h1>Masha Samsikova</h1>
+          <p class="caption">Second-year CS student at ITMO University, St.Petersburg, Russia</p>
+        </div>
       </div>
       <div class="col-4">
-        <h1>Education</h1>
-        <p class="caption">
-          My school & University & additional education
-        </p>
+        <div class="center">
+          <a href="education.html">
+            <h1>Education</h1>
+          </a>
+          <p class="caption">
+            My school & University & additional education
+          </p>
+        </div>
       </div>
       <div class="col-2">
         <img src="images/itmo-university.jpg" alt="university"></img>
@@ -45,20 +51,6 @@
       <div class="col-2">
         <img src="images/white-night.jpg" alt="nights"></img>
       </div>
-      <div class="col-12 info left-align">
-        <a class="link" href="https://en.itmo.ru/">
-          Itmo University
-        </a>
-        <p class="additional">
-          Applied mathematics & CS
-        </p>
-        <a class="link" href="https://en.wikipedia.org/wiki/Saint_Petersburg_State_University">
-          SpbSU Academic Gymnasium
-        </a>
-        <p class="additional">
-          Chemestry & Biology
-        </p>
-      </div>
       <div class="col-2">
         <img src="images/sky.jpg" alt="sky"></img>
       </div>
@@ -72,34 +64,24 @@
         <img src="images/house.jpg" alt="house"></img>
       </div>
       <div class="col-4">
-        <h1>Projects</h1>
-        <p class="caption">
-          Finished projects, done at University or in curiosity
-        </p>
-      </div>
-      <div class="col-12 info right-align">
-        <div>
-          <a class="link" href="https://github.com/holounic/jb-python-integration-parser">
-            Python integration parser
+        <div class="center">
+          <a href="projects.html">
+            <h1>Projects</h1>
           </a>
-          <p class="additional">
-            Written in java, extracts information from python errors
-          </p>
-        </div>
-        <div>
-          <a class="link" href="https://github.com/holounic/food-bot">
-            Telegram bot
-          </a>
-          <p class="additional">
-            Written in JS(Node.js), provides info about butrition fees
+          <p class="caption">
+            Finished projects, done at University or in curiosity
           </p>
         </div>
       </div>
       <div class="col-4">
-        <h1>Comments</h1>
-        <p class="caption">
-          Leave, read or delete comments
-        </p>
+        <div class="center">
+          <a href="comments.html">
+            <h1>Comments</h1>
+          </a>
+          <p class="caption">
+            Leave, read or delete comments
+          </p>
+        </div>
       </div>
       <div class="col-2">
         <img src="images/sky.jpg" alt="sky"></img>
@@ -112,22 +94,6 @@
       </div>
       <div class="col-2">
         <img src="images/house.jpg" alt="house"></img>
-      </div>
-      <div class="col-8 left-align comment-section">
-        <form action="/data" method="POST">
-          <textarea name="comment-input">your comment</textarea>
-          <input type="submit" />
-        </form>
-      </div>
-      <div class="col-2">
-        <button type="button" class="comment-button" onclick="getComments()">Get comments</button>
-      </div>
-      <div class="col-2">
-        <button type="button" class="comment-button" onclick="deleteComments()">Delete comments</button>
-      </div>
-      <div class="col-12 left-align">
-        <div id="comment-container">
-        </div>
       </div>
     </div>
   </div>
